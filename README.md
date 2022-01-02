@@ -41,13 +41,8 @@
 
 1. Prepare USB for UEFI booting. `sdb` is the device name of my USB stick. Your device name may vary, so make sure with `lsblk` before and after inserting the USB stick that the name of the device corresponds to the name you enter as an argument. **THIS IS A DESTRUCTIVE OPERATION! ALL DATA ON THE USB STICK WILL BE ERASED WITH THIS SCRIPT!**
 
-        prepare_usb_for_clonezilla_uefi_booting.sh sdb
-        prepare_usb_for_clonezilla_uefi_booting.sh <ENTER_USB_DEVICE_NAME>
-
-1. Install Clonezilla to USB
-
-        install_clonezilla_to_prepared_usb.sh sdb
-        install_clonezilla_to_prepared_usb.sh <ENTER_USB_DEVICE_NAME>
+        ./make_clonezilla_usb.sh sdb
+        ./make_clonezilla_usb.sh <ENTER_USB_DEVICE_NAME>
 
 - Sources - `prepare_usb_for_clonezilla_uefi_booting.sh`
   - https://www.unixmen.com/how-to-format-usb-drive-in-the-terminal/
