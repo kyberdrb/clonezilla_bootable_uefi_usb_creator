@@ -6,6 +6,19 @@
 
 1. List USB devices before and after inserting the USB stick to determine the device name. Then choose this device for the Clonezilla installation.
 
+      quick and sufficiently detailed listing
+
+        $ lsblk -o NAME,FSTYPE,FSVER,UUID,MOUNTPOINT
+        NAME   FSTYPE FSVER UUID                                 MOUNTPOINT
+        sda                                                      
+        ├─sda1 vfat   FAT32 220C-B8F7                            /boot
+        └─sda2 ext4   1.0   cb217b7c-f7c0-4dae-b9a6-412e68b52408 /
+        sdb                                                      
+        └─sdb1 vfat   FAT32 B0F1-03FD                            
+
+
+      or quick listing
+
         $ lsblk
         NAME   MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS
         sda      8:0    0 238.5G  0 disk 
@@ -13,6 +26,16 @@
         └─sda2   8:2    0   220G  0 part /
         sdb      8:16   1   1.9G  0 disk 
         └─sdb1   8:17   1   1.9G  0 part
+
+      or for more accurate output
+
+        $ lsblk --fs
+        NAME   FSTYPE FSVER LABEL      UUID                                 FSAVAIL FSUSE% MOUNTPOINTS
+        sda                                                                                
+        ├─sda1 vfat   FAT32            220C-B8F7                             356.3M    41% /boot
+        └─sda2 ext4   1.0              cb217b7c-f7c0-4dae-b9a6-412e68b52408    7.5G    91% /
+        sdb                                                                                
+        └─sdb1 vfat   FAT32 CLONEZILLA B0F1-03FD
 
   In my case the USB stick I inserted has the name `sdb`
 
