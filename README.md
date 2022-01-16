@@ -102,3 +102,11 @@
           http://windowsten.info/tutorials/5767-how-to-fully-shut-down-windows-10
 
           Steven
+  - https://duckduckgo.com/?q=linux+terminal+download+accelerator&ia=web
+  - https://www.tecmint.com/commandline-download-accelerators-for-linux/
+  - https://archlinux.org/packages/community/x86_64/axel/
+  - https://duckduckgo.com/?q=axel+no+state+file+cannot+resume&ia=web&iax=qa
+      - one way to fix: delete the existing file before downloading
+  - https://duckduckgo.com/?q=axel+no+state+file+cannot+resume&ia=web&iax=qa
+  - https://stackoverflow.com/questions/13217700/dont-download-an-existing-file-with-axel
+

@@ -1,5 +1,7 @@
 #!/bin/sh
 
+#set -x
+
 # TODO automatic mode with automatic USB detection + manual mode with user entered USB partition
 #   I'll start with the noninteractive mode, because it's easier
 
@@ -58,13 +60,6 @@ echo "------------------------------------------------------------"
 echo "Verification: after partitioning"
 lsblk --fs "${DISK_DEVICE}"
 
-PARTITION="/dev/$(cat /proc/partitions | grep "${DISK_NAME}" | grep -v "${DISK_NAME}"$ | tr -s ' \t' | rev | cut -d' ' -f1 | rev)"
-sudo mkfs.vfat "${PARTITION}"
-
-echo "------------------------------------------------------------"
-echo "Verification: after formatting the partition"
-lsblk --fs "${DISK_DEVICE}"
-
 echo "------------------------------------------------------------"
 echo "Verification: before setting the bootable flag"
 sudo parted --script "${DISK_DEVICE}" print
@@ -80,6 +75,8 @@ echo "------------------------------------------------------------"
 echo "Verification: before setting partition label to show in 'lsblk' output"
 lsblk -o NAME,FSTYPE,LABEL,UUID "${DISK_DEVICE}"
 echo
+
+PARTITION="/dev/$(cat /proc/partitions | grep "${DISK_NAME}" | grep -v "${DISK_NAME}"$ | tr -s ' \t' | rev | cut -d' ' -f1 | rev)"
 sudo fdisk "${DISK_DEVICE}" --list -o +Name | grep ""${PARTITION}"" -B1
 
 partition_label="CLONEZILLA"
