@@ -109,4 +109,5 @@
       - one way to fix: delete the existing file before downloading
   - https://duckduckgo.com/?q=axel+no+state+file+cannot+resume&ia=web&iax=qa
   - https://stackoverflow.com/questions/13217700/dont-download-an-existing-file-with-axel
+  - https://infoheap.com/bash-set-default-value-if-a-variable-is-empty/
 
