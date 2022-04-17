@@ -1,8 +1,16 @@
 # Clonezilla UEFI-Bootable USB
 
-... with CSM compatibility to boot it with legacy BIOS.
-
 ## Usage
+
+1. Prepare USB for UEFI booting. `sdb` is the device name of my USB stick. Your device name may vary, so make sure with `lsblk` before and after inserting the USB stick that the name of the device corresponds to the name you enter as an argument. **THIS IS A DESTRUCTIVE OPERATION! ALL DATA ON THE USB STICK WILL BE ERASED WITH THIS SCRIPT!**
+
+        ./make_clonezilla_usb.sh <ENTER_USB_DEVICE_NAME>
+
+    e. g.
+
+        ./make_clonezilla_usb.sh sdb
+
+    where `sdb` is the device name of the USB drive given by `lsblk` command.
 
 1. List USB devices before and after inserting the USB stick to determine the device name. Then choose this device for the Clonezilla installation.
 
@@ -39,22 +47,18 @@
 
     In my case the USB stick I inserted has the name `sdb`
 
-    The order of the operations matters.
+---
 
-    I made this guide for Clonezilla, but this can apply for any other UEFI bootable USB drive creation:
+The order of the operations matters.
 
-    1. partition usb drive as gpt with one fat32 partition
-    2. download latest clonezilla in alternative, i.e. Ubuntu, version
-    3. extract the archive onto the usb drive
-    4. at the end, set the flags `boot` and `esp` for the fat32 partition on the USB drive; If you'd set the mentioned flags before mounting the USB in order to extract the clonezilla archive to the fat32 partition, the partition will not mount and the extraction fails, even when mounted as the root user into `/mnt/` - the extraction succeeds when the fat32 partition is not flagged or flagged as `msftdata`
+I made this guide for Clonezilla, but this can apply for any other UEFI bootable USB drive creation:
 
-1. Prepare USB for UEFI booting. `sdb` is the device name of my USB stick. Your device name may vary, so make sure with `lsblk` before and after inserting the USB stick that the name of the device corresponds to the name you enter as an argument. **THIS IS A DESTRUCTIVE OPERATION! ALL DATA ON THE USB STICK WILL BE ERASED WITH THIS SCRIPT!**
+1. partition usb drive as gpt with one fat32 partition
+2. download latest clonezilla in alternative, i.e. Ubuntu, version
+3. extract the archive onto the usb drive
+4. at the end, set the flags `boot` and `esp` for the fat32 partition on the USB drive; If you'd set the mentioned flags before mounting the USB in order to extract the clonezilla archive to the fat32 partition, the partition will not mount and the extraction fails, even when mounted as the root user into `/mnt/` - the extraction succeeds when the fat32 partition is not flagged or flagged as `msftdata`
 
-        ./make_clonezilla_usb.sh <ENTER_USB_DEVICE_NAME>
-
-    e. g.
-
-        ./make_clonezilla_usb.sh sdb
+## Sources
 
 - Sources - `prepare_usb_for_clonezilla_uefi_booting.sh`
   - https://www.unixmen.com/how-to-format-usb-drive-in-the-terminal/
