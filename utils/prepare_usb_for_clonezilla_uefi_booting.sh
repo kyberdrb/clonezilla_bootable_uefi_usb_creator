@@ -16,6 +16,11 @@ sudo parted --script "${DISK_DEVICE}" -- mklabel "gpt"
 
 echo "Add one FAT32 partition"
 sudo parted --script --align optimal "${DISK_DEVICE}" -- mkpart primary fat32 0% 100%
+ 
+echo "Format that partition"
+PARTITION_NAME=$(cat /proc/partitions | grep "${DISK_NAME}" | rev | cut -d' ' -f1 | rev | grep -v ""${DISK_NAME}"$")
+PARTITION_DEVICE="/dev/${PARTITION_NAME}"
+sudo mkfs.vfat "${PARTITION_DEVICE}"
 
 sync
 sudo sync
