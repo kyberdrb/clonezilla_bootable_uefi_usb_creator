@@ -6,7 +6,7 @@
 
 1. List USB devices before and after inserting the USB stick to determine the device name. Then choose this device for the Clonezilla installation.
 
-      quick and sufficiently detailed listing
+    quick and sufficiently detailed listing
 
         $ lsblk -o NAME,FSTYPE,FSVER,UUID,MOUNTPOINT
         NAME   FSTYPE FSVER UUID                                 MOUNTPOINT
@@ -17,7 +17,7 @@
         └─sdb1 vfat   FAT32 B0F1-03FD                            
 
 
-      or quick listing
+    or quick listing
 
         $ lsblk
         NAME   MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS
@@ -27,7 +27,7 @@
         sdb      8:16   1   1.9G  0 disk 
         └─sdb1   8:17   1   1.9G  0 part
 
-      or for more accurate output
+    or for another type of output
 
         $ lsblk --fs
         NAME   FSTYPE FSVER LABEL      UUID                                 FSAVAIL FSUSE% MOUNTPOINTS
@@ -37,12 +37,24 @@
         sdb                                                                                
         └─sdb1 vfat   FAT32 CLONEZILLA B0F1-03FD
 
-  In my case the USB stick I inserted has the name `sdb`
+    In my case the USB stick I inserted has the name `sdb`
+
+    The order of the operations matters.
+
+    I made this guide for Clonezilla, but this can apply for any other UEFI bootable USB drive creation:
+
+    1. partition usb drive as gpt with one fat32 partition
+    2. download latest clonezilla in alternative, i.e. Ubuntu, version
+    3. extract the archive onto the usb drive
+    4. at the end, set the flags `boot` and `esp` for the fat32 partition on the USB drive; If you'd set the mentioned flags before mounting the USB in order to extract the clonezilla archive to the fat32 partition, the partition will not mount and the extraction fails, even when mounted as the root user into `/mnt/` - the extraction succeeds when the fat32 partition is not flagged or flagged as `msftdata`
 
 1. Prepare USB for UEFI booting. `sdb` is the device name of my USB stick. Your device name may vary, so make sure with `lsblk` before and after inserting the USB stick that the name of the device corresponds to the name you enter as an argument. **THIS IS A DESTRUCTIVE OPERATION! ALL DATA ON THE USB STICK WILL BE ERASED WITH THIS SCRIPT!**
 
-        ./make_clonezilla_usb.sh sdb
         ./make_clonezilla_usb.sh <ENTER_USB_DEVICE_NAME>
+
+    e. g.
+
+        ./make_clonezilla_usb.sh sdb
 
 - Sources - `prepare_usb_for_clonezilla_uefi_booting.sh`
   - https://www.unixmen.com/how-to-format-usb-drive-in-the-terminal/

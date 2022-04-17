@@ -2,10 +2,21 @@
 
 set -x
 
-echo "Format USB to GPT partition table and one FAT32 partition and enable 'esp' and 'boot' flags with GParted"
-echo "in order for the USB drive to be mounted automatically and shown in the file manager."
-echo "When done, press any key to continue..."
-read -r
+DISK_NAME="$1"
+DISK_DEVICE="/dev/${DISK_NAME}"
+
+echo "Verification before"
+lsblk -o NAME,FSTYPE,LABEL,UUID "${DISK_DEVICE}"
+
+echo "Unmount all partitions of the device ${DISK_DEVICE}"
+cat /proc/partitions | grep "${DISK_NAME}" | rev | cut -d' ' -f1 | rev | grep -v ""${DISK_NAME}"$" | xargs -I % sh -c 'sudo umount /dev/%'
+
+echo "Create GPT partition table"
+sudo parted --script "${DISK_DEVICE}" -- mklabel "gpt"
+
+echo "Add one FAT32 partition"
+sudo parted --script --align optimal "${DISK_DEVICE}" -- mkpart primary fat32 0% 100%
 
 sync
 sudo sync
+
