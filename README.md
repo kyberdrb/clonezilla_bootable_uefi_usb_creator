@@ -126,4 +126,7 @@ I made this guide for Clonezilla, but this can apply for any other UEFI bootable
   - https://duckduckgo.com/?q=axel+no+state+file+cannot+resume&ia=web&iax=qa
   - https://stackoverflow.com/questions/13217700/dont-download-an-existing-file-with-axel
   - https://infoheap.com/bash-set-default-value-if-a-variable-is-empty/
+  - sudo dd bs=440 count=1 conv=notrunc if=/tmp/syslinux_inner_package/usr/lib/syslinux/bios/gptmbr.bin of=/dev/sdb
+  - https://wiki.syslinux.org/wiki/index.php?title=Install
+  - https://wiki.syslinux.org/wiki/index.php?title=Mbr
 
