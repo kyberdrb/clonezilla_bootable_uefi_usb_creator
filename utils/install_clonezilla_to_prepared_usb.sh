@@ -29,7 +29,7 @@ udisksctl unmount --block-device ${PARTITION_DEVICE}
 udisksctl mount --block-device ${PARTITION_DEVICE}
 USB_MOUNT_DIR="$(lsblk -oNAME,MOUNTPOINTS "${PARTITION_DEVICE}" | tail --lines=1 | cut --delimiter=' ' --fields=1 --complement)/"
 
-sudo 7z x -y "/tmp/clonezilla_latest.zip" -o"${USB_MOUNT_DIR}/"
+sudo 7z x -y "/tmp/clonezilla_latest.zip" -o"${USB_MOUNT_DIR}"
 
 sync
 sudo sync
