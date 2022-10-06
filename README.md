@@ -129,4 +129,7 @@ I made this guide for Clonezilla, but this can apply for any other UEFI bootable
   - sudo dd bs=440 count=1 conv=notrunc if=/tmp/syslinux_inner_package/usr/lib/syslinux/bios/gptmbr.bin of=/dev/sdb
   - https://wiki.syslinux.org/wiki/index.php?title=Install
   - https://wiki.syslinux.org/wiki/index.php?title=Mbr
+- https://forums.linuxmint.com/viewtopic.php?p=1891954#p1891954
+- https://duckduckgo.com/?q=bash+set+unset&ia=web
+- https://towardsdev.com/what-does-set-u-mean-in-a-bash-script-52b048271741
 
