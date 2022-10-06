@@ -5,9 +5,7 @@ set -x
 DISK_NAME="$1"
 DISK_DEVICE="/dev/${DISK_NAME}"
 
-ALREADY_DOWNLOADED_CLONEZILLA_ISO="$2:-"/tmp/clonezilla_latest.zip""
-
-if [ ! -f "${ALREADY_DOWNLOADED_CLONEZILLA_ISO}" ]
+if [ ! -r "/tmp/clonezilla_latest.zip" ]
 then
   latest_clonezilla_live_alternative_stable_version=$(curl --silent https://clonezilla.org/downloads/download.php?branch=alternative | grep "live version" | tr '<>' ' ' | cut -d' ' -f7)
 
