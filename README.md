@@ -4,13 +4,20 @@
 
 1. Prepare USB for UEFI booting. `sdb` is the device name of my USB stick. Your device name may vary, so make sure with `lsblk` before and after inserting the USB stick that the name of the device corresponds to the name you enter as an argument. **THIS IS A DESTRUCTIVE OPERATION! ALL DATA ON THE USB STICK WILL BE ERASED WITH THIS SCRIPT!**
 
-        ./make_clonezilla_usb.sh <ENTER_USB_DEVICE_NAME>
+        ./make_clonezilla_usb.sh <ENTER_USB_DEVICE_NAME> [BOOT_MODE]
 
     e. g.
 
         ./make_clonezilla_usb.sh sdb
 
-    where `sdb` is the device name of the USB drive given by `lsblk` command.
+    or
+
+        ./make_clonezilla_usb.sh sdb mbr
+        ./make_clonezilla_usb.sh sdb legacy
+
+    where
+    - `sdb` is the device name of the USB drive given by `lsblk` command.
+    - `mbr` or `legacy` is an optional parameter which specifies the boot mode of the USB which is **UEFI** by default (GPT partition table)
 
 1. List USB devices before and after inserting the USB stick to determine the device name. Then choose this device for the Clonezilla installation.
 

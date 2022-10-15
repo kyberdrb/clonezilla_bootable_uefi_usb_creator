@@ -4,7 +4,13 @@ show_help() {
   message="$1"
   echo "${message}"
   echo
-  echo "Usage: ./$(basename "$0") <disk_name>"
+  echo "Usage: ./$(basename "$0") <disk_name> [boot_mode]"
+  echo
+  echo "<disk_name> - name of the disk in '/dev/' directory"
+  echo "[boot_mode] - (optional) specify mode for booting the drive according to the motherboard support"
+  echo "              The supported boot modes are:"
+  echo "              - 'gpt'/'uefi' [default] - GPT partiton scheme for UEFI boot mode"
+  echo "              - 'mbr'/'legacy' - MBR partiton scheme for legacy boot mode"
   echo
   echo "Please enter a valid <disk_name> from command:"
   echo
@@ -25,11 +31,12 @@ show_help() {
   echo "Usage example:"
   echo
   echo "./$(basename "$0") sdb"
+  echo "./$(basename "$0") sdb mbr"
   echo
 }
 
 # Is device name provided?
-if [ $# -ne 1 ]
+if [ $# -lt 1 ]
 then
   show_help "Disk name missing. Please enter a disk name."
   exit 1
@@ -52,9 +59,11 @@ fi
 
 SCRIPT_DIR="$(dirname "$(readlink --canonicalize "$0")")"
 
-"${SCRIPT_DIR}/utils/prepare_usb_for_clonezilla_uefi_booting.sh" "${DISK_NAME}"
+BOOT_MODE="$2"
+
+"${SCRIPT_DIR}/utils/prepare_usb_for_clonezilla_uefi_booting.sh" "${DISK_NAME}" "${BOOT_MODE}"
 "${SCRIPT_DIR}/utils/install_clonezilla_to_prepared_usb.sh" "${DISK_NAME}"
-"${SCRIPT_DIR}/utils/make_usb_bootable.sh" "${DISK_NAME}"
+"${SCRIPT_DIR}/utils/make_usb_bootable.sh" "${DISK_NAME}" "${BOOT_MODE}"
 
 
   script_name="$(basename "$0")"
