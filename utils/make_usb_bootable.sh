@@ -45,11 +45,11 @@ then
 
   printf "%s\n\n" "SYSLINUX bootloader successfully installed onto "${PARTITION_DEVICE}""
 
-  printf "%s\n" "Patching 'libcom32.c32' to prevent error with failed to load 'vesamenu.c32'"
+  printf "%s\n" "Patching 'libcom32.c32' to prevent error with failed to load 'vesamenu.c32' by copying the all Syslinux files"
   udisksctl mount --block-device "${PARTITION_DEVICE}"
   CLONEZILLA_DEVICE_MOUNTPOINT="$(lsblk --output KNAME,MOUNTPOINT | grep "${PARTITION_NAME}" | cut --delimiter=' ' --fields=1 --complement | sed 's/^\s*//g')"
-  cp /tmp/syslinux_inner_package/usr/lib/syslinux/bios/libcom32.c32 "${CLONEZILLA_DEVICE_MOUNTPOINT}/syslinux/"
-  cp /tmp/syslinux_inner_package/usr/lib/syslinux/bios/vesamenu.c32 "${CLONEZILLA_DEVICE_MOUNTPOINT}/syslinux/"
+  cp /tmp/syslinux_inner_package/usr/lib/syslinux/bios/* "${CLONEZILLA_DEVICE_MOUNTPOINT}/syslinux/"
+
   udisksctl unmount --block-device "${PARTITION_DEVICE}"
 
   # Fix non-bootability of the USB drive even with Syslinux installed
