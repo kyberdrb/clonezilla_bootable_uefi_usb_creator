@@ -19,6 +19,19 @@ then
       https://sourceforge.net/projects/clonezilla/files/clonezilla_live_alternative/"${latest_clonezilla_live_alternative_stable_version}"/clonezilla-live-"${latest_clonezilla_live_alternative_stable_version=}"-amd64.zip/download --output="/tmp/clonezilla_latest.zip"
 fi
 
+if [ ! -r "/tmp/clonezilla_latest.zip" ]
+then
+  printf "%s\n" "Downloading from main source failed. Trying direct download from:"
+  printf "%s\n" "https://master.dl.sourceforge.net/project/clonezilla/clonezilla_live_alternative/20230426-lunar/clonezilla-live-20230426-lunar-amd64.zip?viasf=1"
+
+  # Example of direct link download (lunar is the latest clonezilla version which boots into clonezilla environment: the newer versions - as for time of writing 2024/02/26 - were unable to boot into clonezilla environment and booted into gparted environment instead):
+  #     https://master.dl.sourceforge.net/project/clonezilla/clonezilla_live_alternative/20230426-lunar/clonezilla-live-20230426-lunar-amd64.zip?viasf=1
+
+  axel --verbose --num-connections=10 \
+  "https://master.dl.sourceforge.net/project/clonezilla/clonezilla_live_alternative/${latest_clonezilla_live_alternative_stable_version}/clonezilla-live-${latest_clonezilla_live_alternative_stable_version}-amd64.zip?viasf=1" \
+  --output="/tmp/clonezilla_latest.zip"
+fi
+
 echo "Unmount all partitions of the device '/dev/${DISK_NAME}'"
 PARTITION_NAME=$(cat /proc/partitions | grep "${DISK_NAME}" | rev | cut -d' ' -f1 | rev | grep -v ""${DISK_NAME}"$")
 PARTITION_DEVICE="/dev/${PARTITION_NAME}"
