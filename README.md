@@ -65,6 +65,10 @@ I made this guide for Clonezilla, but this can apply for any other UEFI bootable
 3. extract the archive onto the usb drive
 4. at the end, set the flags `boot` and `esp` for the fat32 partition on the USB drive; If you'd set the mentioned flags before mounting the USB in order to extract the clonezilla archive to the fat32 partition, the partition will not mount and the extraction fails, even when mounted as the root user into `/mnt/` - the extraction succeeds when the fat32 partition is not flagged or flagged as `msftdata`
 
+## TODOs
+
+- verify ZIP file checksum
+
 ## Sources
 
 - Sources - `prepare_usb_for_clonezilla_uefi_booting.sh`

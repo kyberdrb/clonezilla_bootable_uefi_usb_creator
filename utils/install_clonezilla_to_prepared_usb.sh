@@ -32,6 +32,8 @@ then
   --output="/tmp/clonezilla_latest.zip"
 fi
 
+# TODO verify checksum of the downloaded ZIP archive to ensure integrity
+
 echo "Unmount all partitions of the device '/dev/${DISK_NAME}'"
 PARTITION_NAME=$(cat /proc/partitions | grep "${DISK_NAME}" | rev | cut -d' ' -f1 | rev | grep -v ""${DISK_NAME}"$")
 PARTITION_DEVICE="/dev/${PARTITION_NAME}"
