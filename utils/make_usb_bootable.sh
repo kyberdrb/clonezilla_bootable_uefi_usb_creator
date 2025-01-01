@@ -7,7 +7,7 @@ DISK_DEVICE="/dev/${DISK_NAME}"
 
 PARTITION_TABLE_TYPE="$2"
 
-if [ "${PARTITION_TABLE_TYPE}" == "mbr" ] || [ "${PARTITION_TABLE_TYPE}" == "legacy" ]
+if [ "${PARTITION_TABLE_TYPE}" = "mbr" ] || [ "${PARTITION_TABLE_TYPE}" = "legacy" ]
 then
   echo "Set the 'boot' flag"
   partition_number="$(sudo parted --machine --script "${DISK_DEVICE}" print | tail -n 1 | cut -d':' -f1)"
@@ -59,10 +59,14 @@ fi
 
 # Not necesarry to flash the GPT bootability binary - the UEFI boots from the USB drive regardless of the boot sector
 #  mentioned here only for reference
-#if [ -z "$PARTITION_TABLE_TYPE" ] || [ "${PARTITION_TABLE_TYPE}" == "gpt" ] || [ "${PARTITION_TABLE_TYPE}" == "uefi" ]
+#if [ -z "$PARTITION_TABLE_TYPE" ] || [ "${PARTITION_TABLE_TYPE}" = "gpt" ] || [ "${PARTITION_TABLE_TYPE}" = "uefi" ]
 #then
   #sudo dd bs=440 count=1 conv=notrunc if=/tmp/syslinux_inner_package/usr/lib/syslinux/bios/gptmbr.bin of="${DISK_DEVICE}"
   #printf "%s\n\n" "Bootable GPT has been successfully flashed onto "${DISK_DEVICE}""
+
+  #partnum=$(sudo parted /dev/sdb --script print | tail --lines=2 | head --lines=1 | awk '{print $1}')
+  #sudo parted "${DISK_DEVICE}" --script set ${partnum} boot on set ${partnum} esp on
+  #sudo parted --script "${DISK_DEVICE}" print
 #fi
 
 echo "Set the partition name for easier recognition in the file manager and in the terminal"
